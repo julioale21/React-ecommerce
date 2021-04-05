@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { GetStaticProps } from 'next';
 import { Product } from 'product/types';
 import api from 'product/api';
-import { Grid, Stack, Text, Button } from '@chakra-ui/react';
+import { Grid, Stack, Text, Button, Link } from '@chakra-ui/react';
 
 interface Props {
   products: Product[],
@@ -22,7 +22,11 @@ const IndexRoute: React.FC<Props> = ({products}) => {
           </Stack>
         ))}
       </Grid>
-      {cart.length && <Button>Ver carrito ({cart.length}) productos</Button>}
+      {Boolean(cart.length) && (
+        <Link isExternal href={"https://wa.me/5492945419603?text=sarasa"}>
+          <Button colorScheme="whatsapp">Completar pedido ({cart.length}) productos</Button>
+        </Link>
+      )}
     </Stack>
   )
 };
