@@ -91,9 +91,11 @@ const IndexRoute: React.FC<Props> = ({products}) => {
                 isExternal
                 padding={4}
                 width="fit-content"
+                size="lg"
                 as={Link}
                 href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`} 
                 colorScheme="whatsapp"
+                leftIcon={<Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"} />}
               >
                 Completar pedido ({cart.length}) productos
               </Button>
