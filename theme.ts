@@ -7,7 +7,7 @@ export default extendTheme({
   styles: {
     global: {
       body: {
-        backgroundColor: "primary.50"
+        backgroundColor: "blue.50"
       }
     }
   }

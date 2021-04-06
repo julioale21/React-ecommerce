@@ -2,9 +2,8 @@ import React, { useMemo, useState } from 'react';
 import { GetStaticProps } from 'next';
 import { Product } from 'product/types';
 import api from 'product/api';
-import { Grid, Stack, Text, Button, Link, Image, Flex } from '@chakra-ui/react';
+import { Grid, Stack, Text, Button, Link, Image, Flex, Center } from '@chakra-ui/react';
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
-
 
 interface Props {
   products: Product[],
@@ -44,8 +43,9 @@ const IndexRoute: React.FC<Props> = ({products}) => {
               fontWeight="500"
               borderRadius="md" 
               key={product.id} 
-              spacing={3}
-              backgroundColor="gray.100"
+              spacing={6}
+              border="1px"
+              borderColor="gray.200"
             >
                 <Image  
                   alt={product.title}
@@ -62,14 +62,16 @@ const IndexRoute: React.FC<Props> = ({products}) => {
                 <Text>{product.title}</Text>
                 <Text>{parseCurrency(product.price)}</Text>
               </Stack>
-              <Button 
-                onClick={() => setcart((cart) => cart.concat(product))} 
-                colorScheme="primary"
-                size="sm"
-                variant="outline"
-              >
-                Agregar
-              </Button>
+              <Center>
+                <Button 
+                  onClick={() => setcart((cart) => cart.concat(product))} 
+                  colorScheme="primary"
+                  size="sm"
+                  variant="outline"
+                >
+                  Agregar
+                </Button>
+              </Center>
             </Stack>
           ))}
         </Grid>
