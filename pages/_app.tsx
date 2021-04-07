@@ -1,17 +1,9 @@
 import React from "react";
-import {
-  ChakraProvider,
-  VStack,
-  Image,
-  Heading,
-  Text,
-  Box,
-  Divider,
-} from "@chakra-ui/react";
-import { AppProps, Container } from "next/app";
+import {ChakraProvider, VStack, Image, Heading, Text, Box, Divider} from "@chakra-ui/react";
+import {AppProps, Container} from "next/app";
 import theme from "theme";
 
-const App: React.FC<AppProps> = ({ Component, pageProps }) => {
+const App: React.FC<AppProps> = ({Component, pageProps}) => {
   return (
     <ChakraProvider theme={theme}>
       <Box padding={4}>

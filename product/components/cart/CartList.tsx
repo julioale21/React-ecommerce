@@ -10,7 +10,7 @@ export default function CartList({ cart }: CartListProps) {
   return (
     <>
       {cart.map((product) => (
-        <CartItem product={product} key={product.id} />
+        <CartItem key={product.id} product={product} />
       ))}
     </>
   );

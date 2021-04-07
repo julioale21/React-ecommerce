@@ -6,7 +6,9 @@ type ItemProps = {
   product: Product;
 };
 export default function CartItem({ product }: ItemProps) {
+  // eslint-disable-next-line no-console
   console.log(product);
+
   return (
     <>
       <Text>{product.title}</Text>
