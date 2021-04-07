@@ -19,7 +19,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
             <Heading>Ecommerce</Heading>
             <Text>Mi Almacen</Text>
           </VStack>
-          <Divider marginY={6} />
+          <Divider marginY={2} />
           <Component {...pageProps} />
         </Container>
       </Box>

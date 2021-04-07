@@ -4,6 +4,7 @@ import { Product } from 'product/types';
 import api from 'product/api';
 import { Grid, Stack, Text, Button, Link, Image, Flex, Center } from '@chakra-ui/react';
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import CartDrawer from 'product/components/cart/CartDrawer';
 
 interface Props {
   products: Product[],
@@ -19,7 +20,6 @@ function parseCurrency(value: number): string {
 const IndexRoute: React.FC<Props> = ({products}) => {
   const [cart, setcart] = useState<Product[]>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null);
-
 
   const text = useMemo(() => 
     cart
@@ -75,33 +75,7 @@ const IndexRoute: React.FC<Props> = ({products}) => {
             </Stack>
           ))}
         </Grid>
-        <AnimatePresence>
-          {Boolean(cart.length) && (
-            <Flex 
-              as={motion.div}
-              initial={{scale: 0}}
-              animate={{scale: 1}}
-              exit={{scale: 0}}
-              bottom={4}
-              position="sticky"
-              alignItems="center"
-              justifyContent="center"
-            >
-              <Button 
-                isExternal
-                padding={4}
-                width="fit-content"
-                size="lg"
-                as={Link}
-                href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`} 
-                colorScheme="whatsapp"
-                leftIcon={<Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"} />}
-              >
-                Completar pedido ({cart.length}) productos
-              </Button>
-            </Flex>
-          )}
-        </AnimatePresence>
+        {Boolean(cart.length) && <CartDrawer cart={cart} />}
       </Stack>
 
       <AnimatePresence>
