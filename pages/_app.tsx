@@ -1,13 +1,21 @@
-import React from "react"
-import { ChakraProvider, VStack, Image, Heading, Text, Box, Divider } from "@chakra-ui/react"
-import { AppProps, Container } from "next/app"
-import theme from "theme"
+import React from "react";
+import {
+  ChakraProvider,
+  VStack,
+  Image,
+  Heading,
+  Text,
+  Box,
+  Divider,
+} from "@chakra-ui/react";
+import { AppProps, Container } from "next/app";
+import theme from "theme";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
     <ChakraProvider theme={theme}>
       <Box padding={4}>
-        <Container 
+        <Container
           backgroundColor="white"
           boxShadow="md"
           marginY={4}
@@ -24,7 +32,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         </Container>
       </Box>
     </ChakraProvider>
-  )
-}
+  );
+};
 
 export default App;

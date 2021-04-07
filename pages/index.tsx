@@ -1,13 +1,21 @@
-import React, { useMemo, useState } from 'react';
-import { GetStaticProps } from 'next';
-import { Product } from 'product/types';
-import api from 'product/api';
-import { Grid, Stack, Text, Button, Link, Image, Flex, Center } from '@chakra-ui/react';
+import React, { useState } from "react";
+import { GetStaticProps } from "next";
+import { Product } from "product/types";
+import api from "product/api";
+import {
+  Grid,
+  Stack,
+  Text,
+  Button,
+  Image,
+  Flex,
+  Center,
+} from "@chakra-ui/react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
-import CartDrawer from 'product/components/cart/CartDrawer';
+import CartDrawer from "product/components/cart/CartDrawer";
 
 interface Props {
-  products: Product[],
+  products: Product[];
 }
 
 function parseCurrency(value: number): string {
@@ -17,54 +25,47 @@ function parseCurrency(value: number): string {
   });
 }
 
-const IndexRoute: React.FC<Props> = ({products}) => {
+const IndexRoute: React.FC<Props> = ({ products }: Props) => {
   const [cart, setcart] = useState<Product[]>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null);
-
-  const text = useMemo(() => 
-    cart
-      .reduce(
-        (message, product) => message.concat(`* ${product.title} - ${parseCurrency(product.price)}\n`),
-        "",
-      )
-      .concat(`\nTotal: ${parseCurrency(cart.reduce((total, product) => total + product.price, 0))}`), 
-    [cart],
-  );
 
   return (
     <AnimateSharedLayout type="crossfade">
       <Stack spacing={6}>
-        <Grid gridGap={6} templateColumns="repeat(auto-fill, minmax(240px, 1fr))">
+        <Grid
+          gridGap={6}
+          templateColumns="repeat(auto-fill, minmax(240px, 1fr))"
+        >
           {products.map((product) => (
-            <Stack 
+            <Stack
               padding={4}
               color="green.500"
               fontSize="sm"
               fontWeight="500"
-              borderRadius="md" 
-              key={product.id} 
+              borderRadius="md"
+              key={product.id}
               spacing={6}
               border="1px"
               borderColor="gray.200"
             >
-                <Image  
-                  alt={product.title}
-                  as={motion.img}
-                  cursor="pointer"
-                  layoutId={product.image}
-                  objectFit="cover" 
-                  maxHeight={128}
-                  borderTopRadius="md" 
-                  src={product.image}
-                  onClick={() => setSelectedImage(product.image)}
-                />
+              <Image
+                alt={product.title}
+                as={motion.img}
+                cursor="pointer"
+                layoutId={product.image}
+                objectFit="cover"
+                maxHeight={128}
+                borderTopRadius="md"
+                src={product.image}
+                onClick={() => setSelectedImage(product.image)}
+              />
               <Stack spacing={1}>
                 <Text>{product.title}</Text>
                 <Text>{parseCurrency(product.price)}</Text>
               </Stack>
               <Center>
-                <Button 
-                  onClick={() => setcart((cart) => cart.concat(product))} 
+                <Button
+                  onClick={() => setcart((cart) => cart.concat(product))}
                   colorScheme="primary"
                   size="sm"
                   variant="outline"
@@ -79,37 +80,37 @@ const IndexRoute: React.FC<Props> = ({products}) => {
       </Stack>
 
       <AnimatePresence>
-          {selectedImage && (
-            <Flex 
-              key="backdrop"
-              alignItems="center"
-              justifyContent="center"
-              as={motion.div}
-              backgroundColor="rgba(0,0,0,0.5)"
-              position="fixed"
-              top={0}
-              left={0}
-              height="100%"
-              width="100%"
-              layoutId={selectedImage}
-              onClick={() => setSelectedImage(null)}
-            >
-              <Image key="image" src={selectedImage} />
-            </Flex>
-          )}
+        {selectedImage && (
+          <Flex
+            key="backdrop"
+            alignItems="center"
+            justifyContent="center"
+            as={motion.div}
+            backgroundColor="rgba(0,0,0,0.5)"
+            position="fixed"
+            top={0}
+            left={0}
+            height="100%"
+            width="100%"
+            layoutId={selectedImage}
+            onClick={() => setSelectedImage(null)}
+          >
+            <Image key="image" src={selectedImage} />
+          </Flex>
+        )}
       </AnimatePresence>
     </AnimateSharedLayout>
-  )
+  );
 };
 
 export const getStaticProps: GetStaticProps = async () => {
   const products = await api.list();
   return {
     props: {
-      products
+      products,
     },
-    revalidate: 10
-  }
-}
+    revalidate: 10,
+  };
+};
 
 export default IndexRoute;

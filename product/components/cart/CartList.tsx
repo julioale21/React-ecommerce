@@ -3,16 +3,15 @@ import React from "react";
 import CartItem from "./CartItem";
 
 type CartListProps = {
-  cart: Product[],
-}
+  cart: Product[];
+};
 
 export default function CartList({ cart }: CartListProps) {
   return (
     <>
-      {cart.map(product => (
+      {cart.map((product) => (
         <CartItem product={product} key={product.id} />
       ))}
     </>
-  )
+  );
 }
-
