@@ -14,52 +14,47 @@ import {
   useDisclosure,
   Link,
 } from "@chakra-ui/react";
-import {Product} from "product/types";
-import {motion, AnimatePresence} from "framer-motion";
+import { Product } from "product/types";
+import { motion, AnimatePresence } from "framer-motion";
 import CartList from "./CartList";
 
 type DrawerProps = {
   cart: Product[];
 };
 
-export default function CartDrawer({cart}: DrawerProps) {
-  const {isOpen, onOpen, onClose} = useDisclosure();
+export default function CartDrawer({ cart }: DrawerProps) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Flex
-        as={motion.div}
-        initial={{scale: 0}}
-        animate={{scale: 1}}
-        exit={{scale: 0}}
-        bottom={4}
-        position="sticky"
         alignItems="center"
+        animate={{ scale: 1 }}
+        as={motion.div}
+        bottom={4}
+        exit={{ scale: 0 }}
+        initial={{ scale: 0 }}
         justifyContent="center"
+        position="sticky"
       >
         <Button
           colorScheme="teal"
-          onClick={onOpen}
           leftIcon={<Image src={"https://icongr.am/material/cart.svg?size=32&color=ffffff"} />}
+          onClick={onOpen}
         >
           Completar pedido ({cart.length}) productos
         </Button>
       </Flex>
 
-      <Drawer
-        isOpen={isOpen}
-        placement="right"
-        onClose={onClose}
-        // finalFocusRef={btnRef}
-      >
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose}>
         <DrawerOverlay>
           <DrawerContent>
             <DrawerCloseButton />
             <DrawerHeader>
               <Flex justifyContent="center">
                 <Image
-                  src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
                   mr={3}
+                  src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
                 />
                 <Text>Mi Carrito</Text>
               </Flex>
@@ -72,34 +67,34 @@ export default function CartDrawer({cart}: DrawerProps) {
             <DrawerFooter>
               <AnimatePresence>
                 <Flex
-                  as={motion.div}
-                  initial={{scale: 0}}
-                  animate={{scale: 1}}
-                  exit={{scale: 0}}
-                  bottom={4}
-                  position="sticky"
                   alignItems="center"
-                  justifyContent="center"
+                  animate={{ scale: 1 }}
+                  as={motion.div}
+                  bottom={4}
+                  exit={{ scale: 0 }}
                   flexDirection="column"
+                  initial={{ scale: 0 }}
+                  justifyContent="center"
+                  position="sticky"
                 >
                   <Button
                     isExternal
-                    padding={4}
-                    width="fit-content"
-                    size="sm"
                     as={Link}
-                    // href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
                     colorScheme="whatsapp"
                     leftIcon={
                       <Image
                         src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"}
                       />
                     }
+                    padding={4}
+                    // href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
+                    size="sm"
+                    width="fit-content"
                   >
                     Completar pedido ({cart.length}) productos
                   </Button>
 
-                  <Button size="sm" width="100%" variant="outline" mt={3} onClick={onClose}>
+                  <Button mt={3} size="sm" variant="outline" width="100%" onClick={onClose}>
                     Cancel
                   </Button>
                 </Flex>
