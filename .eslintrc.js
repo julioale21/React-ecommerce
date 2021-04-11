@@ -2,11 +2,13 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    "cypress/globals": true,
   },
   extends: [
     "plugin:react/recommended",
     "plugin:prettier/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:cypress/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -16,7 +18,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: "module",
   },
-  plugins: ["react", "@typescript-eslint", "prettier"],
+  plugins: ["react", "@typescript-eslint", "prettier", "cypress"],
   rules: {
     "prettier/prettier": [
       "error",

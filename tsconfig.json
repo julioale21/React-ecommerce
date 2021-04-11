@@ -33,6 +33,6 @@
       "@assets/*": ["./src/assets/*"]
     }
   },
-  "exclude": ["node_modules"],
+  "exclude": ["node_modules", "./cypress"],
   "include": ["**/*.ts", "**/*.tsx", "next-env.d.ts", "next.config.js"]
 }
