@@ -59,10 +59,16 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
     [cart, total],
   );
 
-  const handleEditCartQuantity = (product: Product["id"], action: "increment" | "decrement") => {
+  const handleEditCart = (product: Product, action: "increment" | "decrement") => {
     setCart((cart) => {
+      const isInCart = cart.some((item) => item.id === product.id);
+
+      if (!isInCart) {
+        return cart.concat({ ...product, quantity: 1 });
+      }
+
       return cart.reduce((acc, _product) => {
-        if (product !== _product.id) {
+        if (product.id !== _product.id) {
           return acc.concat(_product);
         }
 
@@ -81,25 +87,6 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
     });
   };
 
-  const handleAddToCart = (product: Product) => {
-    setCart((cart) => {
-      const isInCart = cart.some((item) => item.id === product.id);
-
-      if (isInCart) {
-        return cart.map((item) =>
-          item.id === product.id
-            ? {
-                ...item,
-                quantity: item.quantity + 1,
-              }
-            : item,
-        );
-      }
-
-      return cart.concat({ ...product, quantity: 1 });
-    });
-  };
-
   return (
     <AnimateSharedLayout type="crossfade">
       <Stack spacing={6}>
@@ -109,7 +96,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               <ProductCard
                 key={product.id}
                 product={product}
-                onAdd={handleAddToCart}
+                onAdd={(product) => handleEditCart(product, "increment")}
                 onSelectedImage={(image) => setSelectedImage(image)}
               />
             ))}
@@ -164,17 +151,11 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
                         </Text>
                       </HStack>
                       <HStack>
-                        <Button
-                          size="xs"
-                          onClick={() => handleEditCartQuantity(product.id, "decrement")}
-                        >
+                        <Button size="xs" onClick={() => handleEditCart(product, "decrement")}>
                           -
                         </Button>
                         <Text>{product.quantity}</Text>
-                        <Button
-                          size="xs"
-                          onClick={() => handleEditCartQuantity(product.id, "increment")}
-                        >
+                        <Button size="xs" onClick={() => handleEditCart(product, "increment")}>
                           +
                         </Button>
                       </HStack>
