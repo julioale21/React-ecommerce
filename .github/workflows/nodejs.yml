@@ -1,9 +1,9 @@
 name: Node.js CI
 
-on: 
+on:
   push:
     branches: [ main, stream ]
-  pull_request: 
+  pull_request:
     branches: [ main, stream ]
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
       matrix:
         node-version: [14.x]
 
-    steps: 
+    steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -25,4 +25,3 @@ jobs:
     - run: npm test
     - run: npm run dev & npx wait-on http://localhost:3000
     - run: npm run integration
-    
