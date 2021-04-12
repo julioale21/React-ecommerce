@@ -117,7 +117,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               width="fit-content"
               onClick={() => toggleCart(true)}
             >
-              Ver pedido ({cart.length} products)
+              Ver pedido ({cart.reduce((acc, product) => acc + product.quantity, 0)} products)
             </Button>
           </Flex>
         )}
@@ -143,9 +143,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
                   <ListItem key={product.id}>
                     <Stack>
                       <HStack justifyContent="space-between">
-                        <Text fontWeight="500">
-                          {product.title} {product.quantity > 1 ? ` (X${product.quantity})` : ""}
-                        </Text>
+                        <Text fontWeight="500">{product.title}</Text>
                         <Text color="green.400">
                           {parseCurrency(product.price * product.quantity)}
                         </Text>
