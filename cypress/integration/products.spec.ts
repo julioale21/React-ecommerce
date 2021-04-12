@@ -9,6 +9,6 @@ describe("Products", () => {
   it("show display a message when there are not products", () => {
     cy.visit("/empty");
     cy.get("[data-test-id='product']").should("have.length", 0);
-    cy.contains("There are no products");
+    cy.contains("No hay Productos");
   });
 });

@@ -1,4 +1,4 @@
-import * as react from "react";
+import * as React from "react";
 import {
   ChakraProvider,
   VStack,
@@ -9,7 +9,7 @@ import {
   Divider,
   Container,
 } from "@chakra-ui/react";
-import AppProps from "next/app";
+import { AppProps } from "next/app";
 import theme from "theme";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
