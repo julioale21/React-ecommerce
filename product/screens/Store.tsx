@@ -77,7 +77,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
         }
 
         return acc;
-      }, []);
+      }, [] as CartItem[]);
     });
   };
 
@@ -152,7 +152,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
 
             <DrawerBody>
               <List spacing={4}>
-                {cart.map((product, index) => (
+                {cart.map((product) => (
                   <ListItem key={product.id}>
                     <Stack>
                       <HStack justifyContent="space-between">
