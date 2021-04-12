@@ -1,5 +1,5 @@
 import { Product } from "product/types";
-import React from "react";
+import * as React from "React";
 import CartItem from "./CartItem";
 
 type CartListProps = {

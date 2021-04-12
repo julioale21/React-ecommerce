@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "React";
 import { Flex, Input, Text } from "@chakra-ui/react";
 import { Product } from "product/types";
 

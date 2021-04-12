@@ -10,7 +10,7 @@ export default {
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vTL8TZTTWSsEeAv7aEQmkVJd52Ge56MOgA-t2OpnzsegYTNwYTYlw1Ur-PnHSYlSKK8xIhmhYAcN6Le/pub?output=csv",
         {
           responseType: "blob",
-        }
+        },
       )
       .then(
         (response) =>
@@ -19,16 +19,21 @@ export default {
               header: true,
               complete: (results) => {
                 const products = results.data as Product[];
+
                 return resolve(
                   products.map((product) => ({
                     ...product,
                     price: Number(product.price),
-                  }))
+                  })),
                 );
               },
               error: (error) => reject(error.message),
             });
-          })
+          }),
       );
+  },
+  mock: {
+    list: (mock: string): Promise<Product[]> =>
+      import(`./mocks/${mock}.json`).then((result) => result.default),
   },
 };
