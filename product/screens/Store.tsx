@@ -1,63 +1,19 @@
 import * as React from "react";
 import { useState } from "react";
-import { Product } from "../types";
-import {
-  Grid,
-  Stack,
-  Text,
-  Flex,
-  Image,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
-  DrawerHeader,
-  DrawerBody,
-  DrawerFooter,
-  List,
-  ListItem,
-  Button,
-  Link,
-  HStack,
-} from "@chakra-ui/react";
+import { CartItem, Product } from "../types";
+import { Grid, Stack, Text, Flex, Image, Button } from "@chakra-ui/react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import ProductCard from "product/components/ProductCard";
-import { parseCurrency } from "utils/currency";
+import CartDrawer from "product/components/CartDrawer";
 
 interface Props {
   products: Product[];
-}
-
-interface CartItem extends Product {
-  quantity: number;
 }
 
 const StoreScreen: React.FC<Props> = ({ products }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedImage, setSelectedImage] = useState<any>(null);
   const [isCartOpen, toggleCart] = useState<any>(false);
-
-  const total = React.useMemo(
-    () =>
-      parseCurrency(cart.reduce((total, product) => total + product.price * product.quantity, 0)),
-    [cart],
-  );
-
-  const text = React.useMemo(
-    () =>
-      cart
-        .reduce(
-          (message, product) =>
-            message.concat(
-              `* ${product.quantity} ${product.title} - ${parseCurrency(
-                product.price * product.quantity,
-              )}\n`,
-            ),
-          ``,
-        )
-        .concat(`\nTotal: ${total}`),
-    [cart, total],
-  );
 
   const handleEditCart = (product: Product, action: "increment" | "decrement") => {
     setCart((cart) => {
@@ -114,78 +70,21 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
             <Button
               colorScheme="whatsapp"
               size="lg"
-              width="fit-content"
+              width={{ base: "100%", sm: "fit-content" }}
               onClick={() => toggleCart(true)}
             >
               Ver pedido ({cart.reduce((acc, product) => acc + product.quantity, 0)} products)
             </Button>
           </Flex>
         )}
+        <CartDrawer
+          isOpen={isCartOpen}
+          items={cart}
+          onClose={() => toggleCart(false)}
+          onDecrement={(product) => handleEditCart(product, "decrement")}
+          onIncrement={(product) => handleEditCart(product, "increment")}
+        />
       </Stack>
-
-      <Drawer isOpen={isCartOpen} placement="right" size="md" onClose={() => toggleCart(false)}>
-        <DrawerOverlay>
-          <DrawerContent>
-            <DrawerCloseButton />
-            <DrawerHeader>
-              <Flex justifyContent="center">
-                <Image
-                  mr={3}
-                  src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
-                />
-                <Text>Tu pedido</Text>
-              </Flex>
-            </DrawerHeader>
-
-            <DrawerBody>
-              <List spacing={4}>
-                {cart.map((product) => (
-                  <ListItem key={product.id}>
-                    <Stack>
-                      <HStack justifyContent="space-between">
-                        <Text fontWeight="500">{product.title}</Text>
-                        <Text color="green.400">
-                          {parseCurrency(product.price * product.quantity)}
-                        </Text>
-                      </HStack>
-                      <HStack>
-                        <Button size="xs" onClick={() => handleEditCart(product, "decrement")}>
-                          -
-                        </Button>
-                        <Text>{product.quantity}</Text>
-                        <Button size="xs" onClick={() => handleEditCart(product, "increment")}>
-                          +
-                        </Button>
-                      </HStack>
-                    </Stack>
-                  </ListItem>
-                ))}
-              </List>
-            </DrawerBody>
-
-            <DrawerFooter>
-              <AnimatePresence>
-                <Button
-                  isExternal
-                  as={Link}
-                  colorScheme="whatsapp"
-                  href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
-                  leftIcon={
-                    <Image
-                      src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"}
-                    />
-                  }
-                  padding={4}
-                  size="lg"
-                  width="100%"
-                >
-                  Completar pedido ({total})
-                </Button>
-              </AnimatePresence>
-            </DrawerFooter>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
 
       <AnimatePresence>
         {selectedImage && (
