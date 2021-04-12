@@ -1,6 +1,6 @@
 export function parseCurrency(value: number): string {
-  return new Intl.NumberFormat("es-AR", {
+  return value.toLocaleString("es-AR", {
     style: "currency",
     currency: "ARS",
-  }).format(value);
+  });
 }

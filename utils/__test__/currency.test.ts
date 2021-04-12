@@ -2,9 +2,9 @@ import { parseCurrency } from "../currency";
 
 describe("currency", () => {
   describe("parseCurrency", () => {
-    it("should return the price to local", () => {
+    it("deberia devolver el precio localizado", () => {
       const actual = 65;
-      const expected = `$\xa065,00`;
+      const expected = "ARS\xa065.00";
 
       expect(parseCurrency(actual)).toEqual(expected);
     });

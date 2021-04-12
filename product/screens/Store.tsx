@@ -1,4 +1,4 @@
-import * as React from "React";
+import * as React from "react";
 import { useState } from "react";
 import { Product } from "../types";
 import { Grid, Stack, Text, Flex, Image } from "@chakra-ui/react";
