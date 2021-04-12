@@ -5,6 +5,7 @@ import { Grid, Stack, Text, Flex, Image, Button } from "@chakra-ui/react";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import ProductCard from "product/components/ProductCard";
 import CartDrawer from "product/components/CartDrawer";
+import AnimatedImage from "product/components/AnimatedImage";
 
 interface Props {
   products: Product[];
@@ -44,7 +45,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   };
 
   return (
-    <AnimateSharedLayout type="crossfade">
+    <Stack>
       <Stack spacing={6}>
         {Boolean(products.length) ? (
           <Grid gridGap={6} templateColumns="repeat(auto-fill, minmax(240px, 1fr))">
@@ -85,28 +86,10 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
           onIncrement={(product) => handleEditCart(product, "increment")}
         />
       </Stack>
-
-      <AnimatePresence>
-        {selectedImage && (
-          <Flex
-            key="backdrop"
-            alignItems="center"
-            as={motion.div}
-            backgroundColor="rgba(0,0,0,0.5)"
-            height="100%"
-            justifyContent="center"
-            layoutId={selectedImage}
-            left={0}
-            position="fixed"
-            top={0}
-            width="100%"
-            onClick={() => setSelectedImage(null)}
-          >
-            <Image key="image" src={selectedImage} />
-          </Flex>
-        )}
-      </AnimatePresence>
-    </AnimateSharedLayout>
+      {Boolean(selectedImage) && (
+        <AnimatedImage image={selectedImage} onSelected={() => setSelectedImage(null)} />
+      )}
+    </Stack>
   );
 };
 
