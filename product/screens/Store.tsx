@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useState } from "react";
 import { CartItem, Product } from "../types";
-import { Grid, Stack, Text, Flex, Image, Button } from "@chakra-ui/react";
-import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
+import { Grid, Stack, Text, Flex, Button } from "@chakra-ui/react";
 import ProductCard from "product/components/ProductCard";
 import CartDrawer from "product/components/CartDrawer";
 import AnimatedImage from "product/components/AnimatedImage";
+import { editCart } from "product/selectors";
 
 interface Props {
   products: Product[];
@@ -17,31 +17,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   const [isCartOpen, toggleCart] = useState<any>(false);
 
   const handleEditCart = (product: Product, action: "increment" | "decrement") => {
-    setCart((cart) => {
-      const isInCart = cart.some((item) => item.id === product.id);
-
-      if (!isInCart) {
-        return cart.concat({ ...product, quantity: 1 });
-      }
-
-      return cart.reduce((acc, _product) => {
-        if (product.id !== _product.id) {
-          return acc.concat(_product);
-        }
-
-        if (action === "decrement") {
-          if (_product.quantity === 1) {
-            return acc;
-          }
-
-          return acc.concat({ ..._product, quantity: _product.quantity - 1 });
-        } else if (action === "increment") {
-          return acc.concat({ ..._product, quantity: _product.quantity + 1 });
-        }
-
-        return acc;
-      }, [] as CartItem[]);
-    });
+    setCart(editCart(product, action));
   };
 
   return (
