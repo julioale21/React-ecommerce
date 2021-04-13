@@ -11,28 +11,33 @@ import {
 } from "@chakra-ui/react";
 import { AppProps } from "next/app";
 import theme from "theme";
+import { INFORMATION } from "../app/constants";
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider theme={theme}>
-      <Box padding={4}>
-        <Container
-          backgroundColor="white"
-          boxShadow="md"
-          marginY={4}
-          maxWidth="container.xl"
-          padding={4}
-        >
-          <VStack marginY={6}>
-            <Image borderRadius={9999} src="//placehold.it/128x128"></Image>
-            <Heading>Ecommerce</Heading>
-            <Text>Mi Almacen</Text>
-          </VStack>
-          <Divider marginY={2} />
-          <Component {...pageProps} />
-        </Container>
-      </Box>
-    </ChakraProvider>
+    <>
+      <ChakraProvider theme={theme}>
+        <Box padding={4}>
+          <Container
+            backgroundColor="white"
+            boxShadow="md"
+            marginY={4}
+            maxWidth="container.xl"
+            padding={4}
+          >
+            <VStack marginBottom={4}>
+              <Image borderRadius={9999} src={INFORMATION.avatar}></Image>
+              <Heading>{INFORMATION.title}</Heading>
+              <Text>{INFORMATION.description}</Text>
+            </VStack>
+            <Divider marginY={4} />
+            <Component {...pageProps} />
+            <Divider marginY={4} />
+            <Text textAlign="center">© Copyright {new Date().getFullYear()}</Text>
+          </Container>
+        </Box>
+      </ChakraProvider>
+    </>
   );
 };
 

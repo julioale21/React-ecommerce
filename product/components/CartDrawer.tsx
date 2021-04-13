@@ -4,7 +4,7 @@ import {
   Drawer,
   DrawerOverlay,
   DrawerContent,
-  DrawerCloseButton,
+  CloseButton,
   DrawerHeader,
   Flex,
   DrawerBody,
@@ -58,15 +58,17 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
     <Drawer placement="right" size="sm" onClose={onClose} {...props}>
       <DrawerOverlay>
         <DrawerContent>
-          <DrawerCloseButton />
           <DrawerHeader>
-            <Flex justifyContent="center">
-              <Image
-                mr={3}
-                src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
-              />
-              <Text>Tu pedido</Text>
-            </Flex>
+            <Stack alignItems="center" direction="row" justifyContent="space-between">
+              <Flex>
+                <Image
+                  mr={3}
+                  src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
+                />
+                <Text fontSize={{ base: "2xl", sm: "3xl" }}>Tu pedido</Text>
+              </Flex>
+              <CloseButton onClick={onClose} />
+            </Stack>
           </DrawerHeader>
 
           <DrawerBody data-testid="cart">
@@ -75,22 +77,29 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
                 {items.map((product) => (
                   <Stack key={product.id} data-testid="cart-item" direction="row">
                     <Stack width="100%">
-                      <Stack direction="row" justifyContent="space-between">
-                        <Text fontWeight="500">{product.title}</Text>
-                        <Text color="green.400">
-                          {parseCurrency(product.price * product.quantity)}
-                        </Text>
+                      <Stack
+                        alignItems="center"
+                        direction="row"
+                        fontWeight="500"
+                        justifyContent="space-between"
+                      >
+                        <Text>{product.title}</Text>
+                        <Text>{parseCurrency(product.price * product.quantity)}</Text>
                       </Stack>
                       <Stack direction="row">
                         <Button
+                          borderRadius={9999}
+                          colorScheme="primary"
                           data-testid="decrement"
                           size="xs"
                           onClick={() => onDecrement(product)}
                         >
                           -
                         </Button>
-                        <Text>{product.quantity}</Text>
+                        <Text fontWeight="500">{product.quantity}</Text>
                         <Button
+                          borderRadius={9999}
+                          colorScheme="primary"
                           data-testid="increment"
                           size="xs"
                           onClick={() => onIncrement(product)}
@@ -118,7 +127,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
                 data-testid="complete-order"
                 href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
                 leftIcon={
-                  <Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"} />
+                  <Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"} />
                 }
                 padding={4}
                 size="lg"
