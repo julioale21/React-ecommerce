@@ -11,4 +11,15 @@ describe("Products", () => {
     cy.get("[data-testid='product']").should("have.length", 0);
     cy.contains("No hay Productos");
   });
+
+  it("should show the drawer of the cart and close it correctly", () => {
+    cy.visit("/default");
+
+    cy.get("[data-testid='cart'").should("not.exist");
+    cy.get("[data-testid='product'] button").first().click();
+    cy.get("[data-testid='show-cart']").click();
+    cy.get("[data-testid='cart'").should("be.visible");
+    cy.get("[aria-label='Close'").click();
+    cy.get("[data-testid='cart'").should("not.exist");
+  });
 });

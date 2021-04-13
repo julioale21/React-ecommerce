@@ -69,7 +69,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
             </Flex>
           </DrawerHeader>
 
-          <DrawerBody>
+          <DrawerBody data-testid="cart">
             {Boolean(items.length) ? (
               <Stack divider={<Divider />} spacing={4}>
                 {items.map((product) => (
@@ -115,6 +115,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
                 isExternal
                 as={Link}
                 colorScheme="whatsapp"
+                data-testid="complete-order"
                 href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
                 leftIcon={
                   <Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=32&color=ffffff"} />
