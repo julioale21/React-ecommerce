@@ -12,8 +12,10 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
   return (
     <Stack
       key={product.id}
-      backgroundColor="gray.100"
+      borderColor="gray.100"
       borderRadius="md"
+      borderWidth={1}
+      boxShadow="md"
       data-test-id="product"
       padding={4}
       spacing={3}
@@ -24,13 +26,16 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
           backgroundColor="white"
           borderTopRadius="md"
           height={16}
+          loading="lazy"
           objectFit="contain"
           src={product.image}
           width={16}
         />
         <Stack spacing={1}>
           <Text>{product.title}</Text>
-          <Text>{parseCurrency(product.price)}</Text>
+          <Text color="green.500" fontSize="md" fontWeight="500">
+            {parseCurrency(product.price)}
+          </Text>
         </Stack>
       </Stack>
       <Center>

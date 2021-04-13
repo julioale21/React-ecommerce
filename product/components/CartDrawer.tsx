@@ -17,7 +17,6 @@ import {
   Image,
   DrawerProps,
 } from "@chakra-ui/react";
-import { AnimatePresence } from "framer-motion";
 import { parseCurrency } from "utils/currency";
 
 interface Props extends Omit<DrawerProps, "children"> {
@@ -26,7 +25,7 @@ interface Props extends Omit<DrawerProps, "children"> {
   onDecrement: (product: Product) => void;
 }
 
-const CartDrawer: React.FC<Props> = ({ items, onIncrement, onDecrement, ...props }) => {
+const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement, ...props }) => {
   const total = React.useMemo(
     () =>
       parseCurrency(items.reduce((total, product) => total + product.price * product.quantity, 0)),
@@ -49,8 +48,14 @@ const CartDrawer: React.FC<Props> = ({ items, onIncrement, onDecrement, ...props
     [items, total],
   );
 
+  React.useEffect(() => {
+    if (!items.length) {
+      onClose();
+    }
+  }, [items.length, onClose]);
+
   return (
-    <Drawer placement="right" size="sm" {...props}>
+    <Drawer placement="right" size="sm" onClose={onClose} {...props}>
       <DrawerOverlay>
         <DrawerContent>
           <DrawerCloseButton />
@@ -91,7 +96,7 @@ const CartDrawer: React.FC<Props> = ({ items, onIncrement, onDecrement, ...props
           </DrawerBody>
 
           <DrawerFooter>
-            <AnimatePresence>
+            {Boolean(items.length) && (
               <Button
                 isExternal
                 as={Link}
@@ -106,7 +111,7 @@ const CartDrawer: React.FC<Props> = ({ items, onIncrement, onDecrement, ...props
               >
                 Completar pedido ({total})
               </Button>
-            </AnimatePresence>
+            )}
           </DrawerFooter>
         </DrawerContent>
       </DrawerOverlay>
