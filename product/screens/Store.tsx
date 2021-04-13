@@ -22,7 +22,13 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
     <Stack>
       <Stack spacing={6}>
         {Boolean(products.length) ? (
-          <Grid gridGap={6} templateColumns="repeat(auto-fill, minmax(240px, 1fr))">
+          <Grid
+            gridGap={8}
+            templateColumns={{
+              base: "repeat(auto-fill, minmax(240px, 1fr))",
+              sm: "repeat(auto-fill, minmax(360px, 1fr))",
+            }}
+          >
             {products.map((product) => (
               <ProductCard
                 key={product.id}
@@ -42,6 +48,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
         {Boolean(cart.length) && (
           <Flex alignItems="center" bottom={4} justifyContent="center" position="sticky">
             <Button
+              boxShadow="xl"
               colorScheme="primary"
               data-testid="show-cart"
               size="lg"
