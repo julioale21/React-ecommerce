@@ -57,7 +57,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
   return (
     <Drawer placement="right" size="sm" onClose={onClose} {...props}>
       <DrawerOverlay>
-        <DrawerContent>
+        <DrawerContent paddingTop={4}>
           <DrawerHeader>
             <Stack alignItems="center" direction="row" justifyContent="space-between">
               <Flex>
@@ -65,7 +65,12 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
                   mr={3}
                   src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
                 />
-                <Text fontSize={{ base: "2xl", sm: "3xl" }}>Tu pedido</Text>
+                <Stack direction="row" fontSize={{ base: "2xl", sm: "3xl" }} fontWeight="500">
+                  <Text>Tu pedido</Text>{" "}
+                  <Text textColor="gray.400">
+                    ({items.reduce((acc, product) => acc + product.quantity, 0)})
+                  </Text>
+                </Stack>
               </Flex>
               <CloseButton onClick={onClose} />
             </Stack>
@@ -118,25 +123,40 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
             )}
           </DrawerBody>
 
-          <DrawerFooter>
-            {Boolean(items.length) && (
-              <Button
-                isExternal
-                as={Link}
-                colorScheme="whatsapp"
-                data-testid="complete-order"
-                href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
-                leftIcon={
-                  <Image src={"https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"} />
-                }
-                padding={4}
-                size="lg"
-                width="100%"
-              >
-                Completar pedido ({total})
-              </Button>
-            )}
-          </DrawerFooter>
+          {Boolean(items.length) && (
+            <DrawerFooter>
+              <Stack spacing={4} width="100%">
+                <Divider></Divider>
+                <Stack
+                  alignItems="center"
+                  direction="row"
+                  fontSize="lg"
+                  fontWeight="500"
+                  justifyContent="space-between"
+                >
+                  <Text>Total:</Text>
+                  <Text>{total}</Text>
+                </Stack>
+                <Button
+                  isExternal
+                  as={Link}
+                  colorScheme="whatsapp"
+                  data-testid="complete-order"
+                  href={`https://wa.me/5492945419603?text=${encodeURIComponent(text)}`}
+                  leftIcon={
+                    <Image
+                      src={"https://icongr.am/fontawesome/whatsapp.svg?size=24&color=ffffff"}
+                    />
+                  }
+                  padding={4}
+                  size="lg"
+                  width="100%"
+                >
+                  Completar pedido
+                </Button>
+              </Stack>
+            </DrawerFooter>
+          )}
         </DrawerContent>
       </DrawerOverlay>
     </Drawer>
