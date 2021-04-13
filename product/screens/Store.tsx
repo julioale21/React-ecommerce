@@ -5,6 +5,7 @@ import { Grid, Stack, Text, Flex, Button } from "@chakra-ui/react";
 import ProductCard from "product/components/ProductCard";
 import CartDrawer from "product/components/CartDrawer";
 import { editCart } from "product/selectors";
+import { parseCurrency } from "../../utils/currency";
 
 interface Props {
   products: Product[];
@@ -17,6 +18,16 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
   const handleEditCart = (product: Product, action: "increment" | "decrement") => {
     setCart(editCart(product, action));
   };
+
+  const total = React.useMemo(
+    () =>
+      parseCurrency(cart.reduce((total, product) => total + product.price * product.quantity, 0)),
+    [cart],
+  );
+
+  const quantity = React.useMemo(() => cart.reduce((acc, product) => acc + product.quantity, 0), [
+    cart,
+  ]);
 
   return (
     <Stack>
@@ -55,7 +66,15 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               width={{ base: "100%", sm: "fit-content" }}
               onClick={() => toggleCart(true)}
             >
-              Ver pedido ({cart.reduce((acc, product) => acc + product.quantity, 0)} products)
+              <Stack alignItems="center" direction="row" spacing={6}>
+                <Stack alignItems="center" direction="row" spacing={3}>
+                  <Text fontSize="md">Ver pedido</Text>
+                  <Text backgroundColor="rgba(0,0,0,0.25)" fontSize="xs" padding={1}>
+                    {quantity} items
+                  </Text>
+                </Stack>
+                <Text fontSize="md">{total}</Text>
+              </Stack>
             </Button>
           </Flex>
         )}
