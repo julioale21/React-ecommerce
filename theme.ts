@@ -6,11 +6,4 @@ export default extendTheme({
   colors: {
     primary: theme.colors[INFORMATION.color],
   },
-  styles: {
-    global: {
-      body: {
-        backgroundColor: "blue.50",
-      },
-    },
-  },
 });
