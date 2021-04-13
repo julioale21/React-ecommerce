@@ -22,4 +22,12 @@ describe("Products", () => {
     cy.get("[aria-label='Close'").click();
     cy.get("[data-testid='cart'").should("not.exist");
   });
+
+  it("button complete order should contain link to whatsapp ", () => {
+    cy.visit("/default");
+
+    cy.get("[data-testid='product'] button").first().click();
+    cy.get("[data-testid='show-cart']").click();
+    cy.get("[data-testid='complete-order'").should("have.attr", "href").and("contain", "wa.me");
+  });
 });
