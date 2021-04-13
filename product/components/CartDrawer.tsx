@@ -17,7 +17,7 @@ import {
   Image,
   DrawerProps,
 } from "@chakra-ui/react";
-import { parseCurrency } from "utils/currency";
+import { parseCurrency } from "../../utils/currency";
 
 interface Props extends Omit<DrawerProps, "children"> {
   items: CartItem[];
@@ -70,29 +70,43 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
           </DrawerHeader>
 
           <DrawerBody>
-            <Stack divider={<Divider />} spacing={4}>
-              {items.map((product) => (
-                <Stack key={product.id} direction="row">
-                  <Stack width="100%">
-                    <Stack direction="row" justifyContent="space-between">
-                      <Text fontWeight="500">{product.title}</Text>
-                      <Text color="green.400">
-                        {parseCurrency(product.price * product.quantity)}
-                      </Text>
-                    </Stack>
-                    <Stack direction="row">
-                      <Button size="xs" onClick={() => onDecrement(product)}>
-                        -
-                      </Button>
-                      <Text>{product.quantity}</Text>
-                      <Button size="xs" onClick={() => onIncrement(product)}>
-                        +
-                      </Button>
+            {Boolean(items.length) ? (
+              <Stack divider={<Divider />} spacing={4}>
+                {items.map((product) => (
+                  <Stack key={product.id} data-testid="cart-item" direction="row">
+                    <Stack width="100%">
+                      <Stack direction="row" justifyContent="space-between">
+                        <Text fontWeight="500">{product.title}</Text>
+                        <Text color="green.400">
+                          {parseCurrency(product.price * product.quantity)}
+                        </Text>
+                      </Stack>
+                      <Stack direction="row">
+                        <Button
+                          data-testid="decrement"
+                          size="xs"
+                          onClick={() => onDecrement(product)}
+                        >
+                          -
+                        </Button>
+                        <Text>{product.quantity}</Text>
+                        <Button
+                          data-testid="increment"
+                          size="xs"
+                          onClick={() => onIncrement(product)}
+                        >
+                          +
+                        </Button>
+                      </Stack>
                     </Stack>
                   </Stack>
-                </Stack>
-              ))}
-            </Stack>
+                ))}
+              </Stack>
+            ) : (
+              <Text align="center" color="gray.400">
+                No hay items en tu carrito
+              </Text>
+            )}
           </DrawerBody>
 
           <DrawerFooter>
