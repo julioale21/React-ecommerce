@@ -51,6 +51,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
         borderTopRadius="md"
         height={36}
         loading="lazy"
+        minWidth={36}
         objectFit="contain"
         src={product.image}
         width={36}
