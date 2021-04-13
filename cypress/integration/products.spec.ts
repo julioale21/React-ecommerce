@@ -12,22 +12,15 @@ describe("Products", () => {
     cy.contains("No hay Productos");
   });
 
-  it("should show the drawer of the cart and close it correctly", () => {
+  it("should show the drawer of the cart and close it correctly, making sure that the link is valid", () => {
     cy.visit("/default");
 
     cy.get("[data-testid='cart'").should("not.exist");
     cy.get("[data-testid='product'] button").first().click();
     cy.get("[data-testid='show-cart']").click();
     cy.get("[data-testid='cart'").should("be.visible");
+    cy.get("[data-testid='complete-order'").should("have.attr", "href").and("contain", "wa.me");
     cy.get("[aria-label='Close'").click();
     cy.get("[data-testid='cart'").should("not.exist");
-  });
-
-  it("button complete order should contain link to whatsapp ", () => {
-    cy.visit("/default");
-
-    cy.get("[data-testid='product'] button").first().click();
-    cy.get("[data-testid='show-cart']").click();
-    cy.get("[data-testid='complete-order'").should("have.attr", "href").and("contain", "wa.me");
   });
 });
