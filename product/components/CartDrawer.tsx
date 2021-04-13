@@ -32,6 +32,10 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
     [items],
   );
 
+  const quantity = React.useMemo(() => items.reduce((acc, product) => acc + product.quantity, 0), [
+    items,
+  ]);
+
   const text = React.useMemo(
     () =>
       items
@@ -66,10 +70,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
                   src={"https://icongr.am/material/cart-outline.svg?size=32&color=000000"}
                 />
                 <Stack direction="row" fontSize={{ base: "2xl", sm: "3xl" }} fontWeight="500">
-                  <Text>Tu pedido</Text>{" "}
-                  <Text textColor="gray.400">
-                    ({items.reduce((acc, product) => acc + product.quantity, 0)})
-                  </Text>
+                  <Text>Tu pedido</Text> <Text textColor="gray.400">({quantity})</Text>
                 </Stack>
               </Flex>
               <CloseButton onClick={onClose} />
