@@ -42,7 +42,7 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
         {Boolean(cart.length) && (
           <Flex alignItems="center" bottom={4} justifyContent="center" position="sticky">
             <Button
-              colorScheme="whatsapp"
+              colorScheme="primary"
               data-testid="show-cart"
               size="lg"
               width={{ base: "100%", sm: "fit-content" }}
