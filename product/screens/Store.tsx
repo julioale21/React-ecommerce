@@ -4,7 +4,6 @@ import { CartItem, Product } from "../types";
 import { Grid, Stack, Text, Flex, Button } from "@chakra-ui/react";
 import ProductCard from "product/components/ProductCard";
 import CartDrawer from "product/components/CartDrawer";
-import AnimatedImage from "product/components/AnimatedImage";
 import { editCart } from "product/selectors";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 
 const StoreScreen: React.FC<Props> = ({ products }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [selectedImage, setSelectedImage] = useState<any>(null);
   const [isCartOpen, toggleCart] = useState<any>(false);
 
   const handleEditCart = (product: Product, action: "increment" | "decrement") => {
@@ -30,7 +28,6 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
                 key={product.id}
                 product={product}
                 onAdd={(product) => handleEditCart(product, "increment")}
-                onSelectedImage={(image) => setSelectedImage(image)}
               />
             ))}
           </Grid>
@@ -62,9 +59,6 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
           onIncrement={(product) => handleEditCart(product, "increment")}
         />
       </Stack>
-      {Boolean(selectedImage) && (
-        <AnimatedImage image={selectedImage} onSelected={() => setSelectedImage(null)} />
-      )}
     </Stack>
   );
 };
