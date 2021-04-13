@@ -14,7 +14,7 @@ const product: Product = {
 };
 
 test("should show the title, price and button", () => {
-  render(<ProductCard product={product} onAdd={jest.fn()} onSelectedImage={jest.fn()} />);
+  render(<ProductCard product={product} onAdd={jest.fn()} />);
 
   const priceRegex = new RegExp(String(product.price), "i");
 
@@ -26,7 +26,7 @@ test("should show the title, price and button", () => {
 test("should execute onAdd when click on add ", () => {
   const onAdd = jest.fn();
 
-  render(<ProductCard product={product} onAdd={onAdd} onSelectedImage={jest.fn()} />);
+  render(<ProductCard product={product} onAdd={onAdd} />);
 
   fireEvent.click(screen.getByText("Agregar"));
 
