@@ -62,7 +62,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
     <Drawer placement="right" size="sm" onClose={onClose} {...props}>
       <DrawerOverlay>
         <DrawerContent paddingTop={4}>
-          <DrawerHeader>
+          <DrawerHeader paddingX={4}>
             <Stack alignItems="center" direction="row" justifyContent="space-between">
               <Flex>
                 <Image
@@ -77,7 +77,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
             </Stack>
           </DrawerHeader>
 
-          <DrawerBody data-testid="cart">
+          <DrawerBody data-testid="cart" paddingX={4}>
             {Boolean(items.length) ? (
               <Stack divider={<Divider />} spacing={4}>
                 {items.map((product) => (
@@ -125,7 +125,7 @@ const CartDrawer: React.FC<Props> = ({ items, onClose, onIncrement, onDecrement,
           </DrawerBody>
 
           {Boolean(items.length) && (
-            <DrawerFooter>
+            <DrawerFooter paddingX={4}>
               <Stack spacing={4} width="100%">
                 <Divider></Divider>
                 <Stack

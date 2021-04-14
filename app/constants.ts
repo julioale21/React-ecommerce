@@ -7,4 +7,14 @@ export const INFORMATION = {
   sheet:
     "https://docs.google.com/spreadsheets/d/e/2PACX-1vTL8TZTTWSsEeAv7aEQmkVJd52Ge56MOgA-t2OpnzsegYTNwYTYlw1Ur-PnHSYlSKK8xIhmhYAcN6Le/pub?output=csv",
   color: "teal",
+  social: [
+    {
+      name: "instagram",
+      url: "https://instagram.com",
+    },
+    {
+      name: "whatsapp",
+      url: "https://wa.me/54929454196036",
+    },
+  ],
 };

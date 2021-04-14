@@ -69,7 +69,15 @@ const StoreScreen: React.FC<Props> = ({ products }) => {
               <Stack alignItems="center" direction="row" spacing={6}>
                 <Stack alignItems="center" direction="row" spacing={3}>
                   <Text fontSize="md">Ver pedido</Text>
-                  <Text backgroundColor="rgba(0,0,0,0.25)" fontSize="xs" padding={1}>
+                  <Text
+                    backgroundColor="rgba(0,0,0,0.25)"
+                    borderRadius="sm"
+                    color="gray.100"
+                    fontSize="xs"
+                    fontWeight="500"
+                    paddingX={2}
+                    paddingY={1}
+                  >
                     {quantity} items
                   </Text>
                 </Stack>

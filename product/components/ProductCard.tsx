@@ -24,7 +24,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
       <Stack direction="row" padding={4} width="100%">
         <Stack justifyContent="space-between" spacing={1} width="100%">
           <Stack spacing={1}>
-            <Text>{product.title}</Text>
+            <Text fontWeight="500">{product.title}</Text>
             <Text color="gray.500" fontSize="sm">
               {product.description}
             </Text>
@@ -33,12 +33,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
             <Text color="green.500" fontSize="md" fontWeight="500">
               {parseCurrency(product.price)}
             </Text>
-            <Button
-              colorScheme="primary"
-              size="sm"
-              variant="outline"
-              onClick={() => onAdd(product)}
-            >
+            <Button size="sm" onClick={() => onAdd(product)}>
               Agregar
             </Button>
           </Stack>
