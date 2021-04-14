@@ -44,12 +44,12 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
         alt={product.title}
         backgroundColor="white"
         borderTopRadius="md"
-        height={36}
+        height={{ base: 24, sm: 36 }}
         loading="lazy"
-        minWidth={36}
+        minWidth={{ base: 24, sm: 36 }}
         objectFit="contain"
         src={product.image}
-        width={36}
+        width={{ base: 24, sm: 36 }}
       />
     </Stack>
   );
