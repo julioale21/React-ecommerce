@@ -31,7 +31,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
                 <Box
                   backgroundColor="white"
                   borderRadius={9999}
-                  marginTop={-8}
+                  marginTop={-{ base: -12, sm: -16 }}
                   maxWidth={{ base: 24, sm: 32 }}
                   minWidth={{ base: 24, sm: 32 }}
                   padding={1}
