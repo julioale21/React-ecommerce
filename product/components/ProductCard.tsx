@@ -12,6 +12,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
   return (
     <Stack
       key={product.id}
+      alignItems="center"
       borderColor="gray.100"
       borderRadius="md"
       borderWidth={1}
@@ -33,7 +34,7 @@ const ProductCard: React.FC<Props> = ({ product, onAdd }) => {
             <Text color="green.500" fontSize="md" fontWeight="500">
               {parseCurrency(product.price)}
             </Text>
-            <Button size="sm" onClick={() => onAdd(product)}>
+            <Button size="xs" onClick={() => onAdd(product)}>
               Agregar
             </Button>
           </Stack>
